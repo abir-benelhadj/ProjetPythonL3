@@ -47,5 +47,6 @@ Affichage de l'image dans une fenêtre : Husna a travaillé sur l'affichage de l
 Gestion de l'interface utilisateur et liaison avec Tkinter : Abir a pris en charge la liaison des fichiers CSV avec l'interface Tkinter et la gestion des paramètres de la fenêtre.
 
 Création de l'interface utilisateur : Nous avons toutes  les deux participé à la création de l'interface utilisateur, en veillant à ce qu'elle soit simple et fonctionnelle.
+(Création de la fenêtre principale = Husna)
 
 
