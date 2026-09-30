@@ -1,52 +1,58 @@
-nom du groupe : HA<br>
-Membre 1 : Abir BEN EL HADJ 20212686<br>
-Membre 2 : Husna ALLAOUI<br>
-[Rapport.pdf](https://github.com/user-attachments/files/18051953/Rapport.pdf)
+# Générateur de schémas réseau en Python
 
-**les bibliothèques utilisée:**
+Application graphique réalisée en Licence Informatique pour transformer deux fichiers CSV décrivant les équipements et leurs connexions en un schéma réseau.
 
-- Tkinter : Utilisé pour la création de l'interface graphique permettant aux utilisateurs de sélectionner et afficher les fichiers.<br>
-- Pandas : Utilisé pour la manipulation et la validation des données CSV, facilitant la lecture et le traitement des fichiers.<br>
-- Diagrams : Utilisé pour générer des schémas de réseau sous forme d'images claires et structurées.<br>
-- Pillow : Utilisé pour la gestion et la manipulation d'images, en particulier pour le formatage des résultats.<br>
-- os : Utilisé pour la gestion des fichiers et des répertoires, permettant de vérifier l'existence des fichiers et de créer des répertoires de manière dynamique.
+## Aperçu
+![Exemple de schéma réseau](python/icone/Schema_configuration_reseau.png)
 
+## Fonctionnalités
+- Sélection des fichiers CSV depuis une interface Tkinter.
+- Affichage des équipements avec leur nom, leurs adresses IP et une icône.
+- Création des liens à partir des adresses IP du fichier de connexions.
+- Export PNG et affichage du résultat dans une fenêtre.
+- Ouverture des CSV dans une application externe pour les modifier.
 
+## Technologies
+Python, Tkinter, Pandas, Diagrams, Pillow et Graphviz.
 
-**une présentation rapide de la structure du code:**
+## Installation et lancement
+Utilisez une installation Python disposant de Tkinter et installez Graphviz sur votre système. La commande `dot` doit être accessible dans le PATH.
 
-- Dictionnaire mappage_icone : Associe chaque type d'appareil réseau à une icône spécifique ou une fonction pour générer un nœud visuel.<br>
-- Fonctions principales :
-    - ouvrir_fichier : Ouvre un fichier via l'application système par défaut.<br>
-    - choisir_fichier_appareil / choisir_fichier_connexion : Sélection des fichiers CSV.<br>
-    - generer_diagramme :Lit les fichiers CSV,crée un diagramme réseau avec des nœuds et des connexions et enregistre et affiche le schéma                           généré.<br>
-    - afficher_diagramme : Affiche le diagramme généré dans une fenêtre Tkinter.<br>
-    - choisir_et_ouvrir_fichier : Permet de modifier les fichiers CSV.
-                        
-Interface utilisateur (Tkinter) :<br>
-- Fenêtre principale :
-    - Entrées pour les chemins des fichiers.<br>
-    - Boutons pour parcourir les fichiers et générer le schéma.<br>
-- Fenêtres secondaires :
-    - Pour afficher ou modifier les fichiers.
+```bash
+git clone https://github.com/abir-benelhadj/ProjetPythonL3.git
+cd ProjetPythonL3
+python -m venv .venv
+```
 
-Gestion des erreurs :Messages d'erreur via des boîtes de dialogue en cas de problème (fichiers manquants, exceptions).
+Activez l’environnement avec `source .venv/bin/activate` sous macOS/Linux, ou `.venv\Scripts\activate` dans l’invite de commandes Windows, puis :
 
+```bash
+python -m pip install pandas diagrams Pillow
+cd python
+python code.py
+```
 
+Lancez le programme depuis le dossier `python` : les chemins des icônes sont relatifs à ce dossier.
 
-**la répartition du travail au sein de groupe:**
+## Format des données
+Les CSV utilisent un point-virgule comme séparateur.
 
-Recherche des bibliothèques : Cette tâche a été réalisée en collaboration entre nous deux pour identifier et intégrer les bibliothèques nécessaires au projet.
+| Fichier | Colonnes |
+| --- | --- |
+| `appareil.csv` | `type`, `nom`, puis `ip1`, `ip2`, etc. |
+| `connection.csv` | `nom`, puis `c1`, `c2`, etc. contenant les IP cibles |
 
-Sélection des images : Abir a été responsable de la sélection des images pour le mappage des appareils dans le diagramme.
+Sélectionnez les deux exemples fournis, puis cliquez sur « Générer le Schéma ». Le fichier `Schema_configuration_reseau.png` est écrit dans le dossier de lancement. Une adresse cible doit correspondre à une IP du fichier des appareils pour créer un lien. Ces données servent à illustrer une topologie ; l’application ne valide pas une configuration réseau réelle.
 
-Génération du diagramme : La création du diagramme a été effectuée à deux, en utilisant Diagrams pour transformer les données en représentations visuelles.
+## Documents
+- [Premier rendu](Rendu%201.pdf)
+- [Deuxième rendu](Rendu%202.pdf)
+- [Rapport](https://github.com/user-attachments/files/18051953/Rapport.pdf)
 
-Affichage de l'image dans une fenêtre : Husna a travaillé sur l'affichage de l'image générée dans une fenêtre dédiée, gérant ainsi l'intégration avec Tkinter.
+## Travail en binôme
+Groupe HA : Abir BEN EL HADJ et Husna ALLAOUI.
 
-Gestion de l'interface utilisateur et liaison avec Tkinter : Abir a pris en charge la liaison des fichiers CSV avec l'interface Tkinter et la gestion des paramètres de la fenêtre.
+Recherche des bibliothèques, génération du diagramme et conception de l’interface réalisées ensemble. Abir a pris en charge la sélection des icônes, la liaison des CSV avec Tkinter et les paramètres de fenêtre. Husna a travaillé sur la fenêtre principale et l’affichage de l’image.
 
-Création de l'interface utilisateur : Nous avons toutes  les deux participé à la création de l'interface utilisateur, en veillant à ce qu'elle soit simple et fonctionnelle.
-(Création de la fenêtre principale = Husna)
-
-
+## Limite connue
+La fonction d’ouverture externe utilise actuellement `open` pour tous les systèmes POSIX : cette fonction nécessite une adaptation sur Linux pour utiliser `xdg-open`. La génération du schéma est indépendante de cette fonction.
